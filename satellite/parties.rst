@@ -216,9 +216,9 @@ It contains :ref:`iSHARE compliant JWT claims<refJWTPayload>`. In addition to th
 Decoded JWT Payload
 ^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: json
+::
 
-{
+ {    
   "parties_token": {
     "iss": "EU.EORI.NL123456789",
     "sub": "EU.EORI.NL123456789",
@@ -311,7 +311,7 @@ Decoded JWT Payload
       ]
     }
   }
-}
+ }
 
 Extensions
 ~~~~~~~
