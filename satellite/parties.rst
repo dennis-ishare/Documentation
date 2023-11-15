@@ -24,7 +24,7 @@ Parameters
 ~~~~~~~~~~
 
 ``active_only``
-    | **Boolean**. *Owptional*.
+    | **Boolean**. *Optional*.
     | Optional parameter used to search by party's "Active" status.
 
 ``name``
