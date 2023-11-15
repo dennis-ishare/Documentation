@@ -3,55 +3,13 @@
 Trusted list
 ============
 
-Used to obtain the iSHARE trusted list of certificate authorities. This will return PKIoverheid and eIDAS-qualified CAs valid under iSHARE.
+Used to obtain the iSHARE trusted list of certificate authorities. Currently, eIDAS certificate issuer certificate authorities.
 
-Request
--------
-
-HTTP methods
-~~~~~~~~~~~~
-
-* GET
-
-Headers
-~~~~~~~
-
-``Authorization``
-    | **String**.
-    | OAuth 2.0 authorization based on bearer token. MUST contain "Bearer " + access token value. How to retrieve the access token can be found at :ref:`Access Token Endpoint section<refM2MToken>`.
-
-Example
-~~~~~~~
-
-::
-
-    > Authorization: Bearer IIeDIrdnYo2ngwDQYJKoZIhvcNAQELBQAwSDEZMBcGA1UEAwwQaVNIQ
-
-    GET /trusted_list
-
-Response
---------
-
-Headers
-~~~~~~~
-
-``Content-Type``
-    | **String**.
-    | Defines response body content type. MUST be equal to *application/json*.
-
-HTTP status codes
-~~~~~~~~~~~~~~~~~
-
-200 OK
-    | When a valid request is sent an OK result should be returned.
-
-401 Unauthorized
-    | When ``Authorization`` header is either missing, invalid or token has already expired.
 
 Parameters
 ~~~~~~~~~~
 
-``trusted_list_token``
+``Authorization``
     | **String (JWT)**.
     | A signed JWT which contains information about trusted list authorities.
 
