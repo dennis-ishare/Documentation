@@ -11,97 +11,121 @@ Parameters
 
 ``Authorization``
     | **String (JWT)**.
-    | A signed JWT which contains information about trusted list authorities.
+    | OAuth 2.0 authorization based on bearer token. MUST contain “Bearer ” + access token value. How to retrieve the access token can be found at Access Token Endpoint section.
 
-**Decoded trusted_list_token parameters:**
 
-It contains :ref:`iSHARE compliant JWT claims<refJWTPayload>`. In addition to that it also contains the following parameters:
+Response
+--------
 
-``trusted_list``
-    | **Array of Objects**. Root level.
-    | Contains collection of trusted certificate authorities.
-
-    ``subject``
-        | **String**. Contained in the object of ``trusted_list``.
-        | Certificate authority subject name.
-
-    ``certificate_fingerprint``
-        | **String**. Contained in the object of ``trusted_list``.
-        | SHA256 fingerprint of the certificate.
-
-    ``validity``
-        | **String**. Contained in the object of ``trusted_list``.
-        | Validity of the certificate. Available values are *valid* or *invalid*.
-
-    ``status``
-        | **String**. Contained in the object of ``trusted_list``.
-        | Status of the certificate. Available values are *granted*, *withdrawn*, *supervisionceased* and *undersupervision*.
-
-200 OK Example
-~~~~~~~~~~~~~~
+200
+    | OK
 
 ::
 
     < Content-Type: application/json
 
-    {
-      "trusted_list_token": "eyJ4NWMiOlsiTUlJRWlEQ0NBbkNnQXdJQkFnSUllRElyZG5ZbzJuZ3dEUVlKS29aSWh2Y05BUUVMQlFBd1NERVpNQmNHQTFVRUF3d1FhVk5JUVZKRlZHVnpkRU5CWDFSTVV6RU5NQXNHQTFVRUN3d0VWR1Z6ZERFUE1BMEdBMVVFQ2d3R2FWTklRVkpGTVFzd0NRWURWUVFHRXdKT1REQWVGdzB4T1RBeU1UVXhNVFEyTlRoYUZ3MHlNVEF5TVRReE1UUTJOVGhhTUVreEhEQWFCZ05WQkFNTUUybFRTRUZTUlNCVFkyaGxiV1VnVDNkdVpYSXhIREFhQmdOVkJBVVRFMFZWTGtWUFVra3VUa3d3TURBd01EQXdNREF4Q3pBSkJnTlZCQVlUQWs1TU1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBMFJvb2hlUEwwMk52NEJaVEoza3A3bktzaHNtanJjcjhNQmFBaFFwWlpBc2dUQWxtUWlDVFBtM2M4cVlQcU4rVHVnZ0ZXQ05uKzlXNTRDNVVHcXNJd3RYVGszWWV4QXdaNG9qUlJ0bzhsMUhQRFZBUzZXdlc3NEFDTlpsRWdHd2pyQ0d5MitNNVFQN083d0IwVDZvRkJvZlJ3SFpHemdidFNiU1FodXF3VXhmMEdaSTh4QWwyL0dUSDI1VmZwOVQ3MUpFcG9aOWtzUDNDSWk1QkhrbGJUNUdLeEVPRmZkTU11cFg3bVduTlFiTHh1UXBBdEdDdW9yR2ZQRkU3RjVldkUxem9wd2NlQTVGc0UxTGFCUnF0K0VPcFBJbVNhalIwMmJjaEs5alM2bllFV3MvRlpHTHRKYWxsNUwzU25aTTZPaFd4TStsS0d6Rkt3NVRJWE45RE13SURBUUFCbzNVd2N6QU1CZ05WSFJNQkFmOEVBakFBTUI4R0ExVWRJd1FZTUJhQUZCWTg1eURwMXBUdkgrV2k4Ymo4dnVyZkxEZUJNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01CTUIwR0ExVWREZ1FXQkJSZndpalQ3NWRJS1BsRkMvQ3RSRHFVS1g5VE5qQU9CZ05WSFE4QkFmOEVCQU1DQmFBd0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dJQkFLNFBXVHEvZHF0Vm0rNFdDZDFLUUo0dGorbjRjY0lBWUxETXFZU0JKc042UTJjdE1SQy8rK3lNL293UEhCcmlUendXL2pvQXBOUGVaaDFJVFRnU3phMzhtM2h4b0RxMXV4NkhWR3lLNVFDUW9qRmRsZWM3dE9IbG1jYnV5VjRDRXlNWmJHK3lMbVZESTNxNTNWQVBnV3ZLSWkyUlVwc1BOdzJsbzZINjZ2SE5wNWZpcEIvdEU0Q0RsYS9UYU41MWxOM2xYT3c0bHRiWmJ6YmQ2TXhJbEVDUWZKSDVlUHJpcGFrSmhuaVZrWnZRVmthS0FlcFNYMGFEWUxPcFFRbmV0RFdab1ZKS0FzR0VMM0hMaWhxWXNEejcvQlQzRHdUMEtDNSs5OGdqR1p3dkx3ZXRKOTZLWFRBRTUwMmYzak95UDdERDZ1SytKS2d2UVp5dkk1L0V1cDBUdE5sUmZKeThhZDhweCszOG9JeEdBbGJzS29XbXowb2FNR0MrbFZHTlAyTTQ4TTdWa3RCVHB5bXF4Vnd0VGt2TVBqWldIS2xYdDJXMzNtTktHakpTOTVJNXZxT0tQV1NTc1dkSlJZSkNsbUVybWlkTlczMWxXQVZQcjFpU1M0SlhEdllQTENQNDRhNGVkMEdhV1pSdi9iK0QyK1FVZ09iOFN6bWpQdmYvMkdOdHFXUmR5WXRYWjl2eDAzNGkrWEYveWU4c2lOK1grd0ZIdFJ1bXRzd2Irc2NRZjRmVTZNaktCS1VzUERBUkFHakhqNXhIQkRqcTg0bmpHdVFjbDBoYlMzK1pTVjROcWtKSVVzMkxVdDlFdjFYN2FCNy85NUVYQWNnTlhkM0tQVm0zcDhORDc1QXFNMEZHUUVhUXlPd3FLY3FUQ2xKQ3VmR3NVWTRzN3JXUiIsIkxTMHRMUzFDUlVkSlRpQkRSVkpVU1VaSlEwRlVSUzB0TFMwdERRcE5TVWxHWTFSRFEwRXhiV2RCZDBsQ1FXZEpTVk5HVWtwM1IwRkJlV3BWZDBSUldVcExiMXBKYUhaalRrRlJSVXhDVVVGM1VrUkZWazFDVFVkQk1WVkZEUXBCZDNkTllWWk9TVkZXU2taV1IxWjZaRVZPUWsxUk1IZERkMWxFVmxGUlRFUkJVbFZhV0U0d1RWRTRkMFJSV1VSV1VWRkxSRUZhY0ZVd2FFSlZhMVY0RFFwRGVrRktRbWRPVmtKQldWUkJhelZOVFVJMFdFUlVSVFJOUkdONVRYcEZNVTFVVVhoTk1XOVlSRlJKZWsxRVkzbE5ha1V4VFZSUmVFMHhiM2RUUkVWYURRcE5RbU5IUVRGVlJVRjNkMUZoVms1SlVWWktSbFpIVm5wa1JVNUNXREZTVFZWNlJVNU5RWE5IUVRGVlJVTjNkMFZXUjFaNlpFUkZVRTFCTUVkQk1WVkZEUXBEWjNkSFlWWk9TVkZXU2taTlVYTjNRMUZaUkZaUlVVZEZkMHBQVkVSRFEwRnBTWGRFVVZsS1MyOWFTV2gyWTA1QlVVVkNRbEZCUkdkblNWQkJSRU5ERFFwQloyOURaMmRKUWtGUWRXVlNXRlZIVTFWbmRUZHhjRUZYU21wQlZrZzVlak14T1ZodWRVWnNaVlpsVHk5WWVHSktObFUwYVhoWVVrdDJWemgyUzFSV0RRb3haRkpqWmxGbFEzRllhemQxWVM5YWMzRk9jbkU0T1VWNE9UVmlNRzV4UjFWMk1VNXZTekpVT0hsRlFXdFJlbmw2V1Zwd1Z6UmpNbGxOUTJObk5XRnREUXBTZDBObVdXRm9TSFJLYlZoS1YzRlNSV1YyVFRWclNtOVBZV05MU0M5SFZXSnpaVzFVT1RSQ01FdFlVMDVSTmtsWFkwcDVhbkIxWVc5RWNHSTJWMlE1RFFvM1ZESnNkVkF4U1ZFMVoydG1kMVV6T0VOYVNrdFdhMkpaTTJWS2EweHNUM2QzZEVaelJsQlFNazAwWmpoMU5EYzVUMnROVlhJMUwyMHJlRzQzTTBwaERRcGFVMHBHVDBoMlNVNDJSRVp3UVd4ek1tRjROMEpvVlZOc1lrdE5NMWxGZFU1aU1FODBiMDgxZVc1RVJraDJiV3hzY0RaT2RUQkdNbGh2TUVKMU1GQXZEUXAxY1dJdk1EaFlkbFpYYm1VM2QyTjNWMXBTT1N0a056aHhLMDlzWmtNdmJTdDNRWGRCY1cxUlNFVnlPR2hLVG5aU05sTXZPRFJJUVdwVlpFMTVSMk5aRFFwVWRtOTJNSFJpTUZwM0wwRkxkMFJuT0ZCRE9WVkdVbGxpTUdOQ2NqQXJMMGRtWjIxS1VEVlJUVUZtVEhGcldHMWFkMWxSVTFveFJtRnRUbXhLYkcxNERRb3djMWxhVVZOaGRXUkhNQ3RZYTJNNU9URXJXbmN2ZURoMVYxcHBPWEZSV21WQ1QyUjNia2t5ZUdZdlNFcFlTRXB6WVZwbVJIWlVjRFZwT0dsV1VEYzFEUW94Y21ocGJuZE1hVEprV201dFUzTlJPVFpuZG5SVVVVSnZORW8xUVhaR0szTTVTV3dyVkhWclpVeDBiRXRCUW1GdlRYZDZPSGRaUWtOdVprdDJWWFJyRFFwd04wcFZOV2xxYWxsR1lYRlJjMFpTTTFKd1QwaFlZMGd2YzNCYVZGbElkVk56TVU5d1NGWmljakF2WTBaMFYxcHdkalIwVTFGcmJGQnhRMnBrWkZOQkRRcFRTRGxyTTA5Q1FXaDRaVzU1V0V4cmJqbFZPVUZCU1RNMGNGcGlSbFlyYld0elIwZHlUamQxYTJzMGIySlRkRWszZWk4MVFXZE5Ra0ZCUjJwWmVrSm9EUXBOUVRoSFFURlZaRVYzUlVJdmQxRkdUVUZOUWtGbU9IZElkMWxFVmxJd2FrSkNaM2RHYjBGVmNtRXpTM05VYmxWV2JsazRTMWhuYkRCU2FXbFJRblJ2RFFwTFJYZDNTRkZaUkZaU01FOUNRbGxGUmtKWk9EVjVSSEF4Y0ZSMlNDdFhhVGhpYWpoMmRYSm1URVJsUWsxQk5FZEJNVlZrUkhkRlFpOTNVVVZCZDBsQ0RRcG9ha0ZPUW1kcmNXaHJhVWM1ZHpCQ1FWRnpSa0ZCVDBOQlowVkJaVWxLZHpGdWJtOVBjbk5oYlhWbFZ6UmpXbEJNZW5KdWRVaFRSWFoyTVZORlRERmlEUXBtUWpaR056TmhibTE0WW5FNUswOVpWelp4YjJwb2VIWnZja2hVUm5wdlVYbHVjMUJ0WW5Odk4zUTBZak5JUVhSWFlVOXNjRE5FUzFwVlZIQjZUMnhNRFFwdVVUbG5jMFJFWmtSV1UwcHpTalZxZUdkc1JFWmFiVEJCTURkTVpETkRlRnBvYm5wWFpqbEJNRkZuVG5GT05XaERZMDl6Y213MGRVUk5kbHA2SzAwNURRcHJUQzlwYTNORGVEUllNSE52TWs5VGJURlJZV3R5WVVGU00zVnRVR015YjI5QllXTlFjMEZXUTJ4c1pXdFlSa281UkVacVNqVlZkaXR5WnpoYVMwaElEUXBNUjNKUU1UbHZMMEZ6V0VwWmNFdFFMM1IwYXpWMFFuVkJORXBDTWpCaFUyaGlZME0xTXpseVFTdFJZeXRyUkVoNVVtNU1NR0ZLZVZKWlpVSm5XVEZwRFFwQmRIVjZXSHBOVDJzMU0xaFdLMkZLYjJkRWNETm5SamN6Y3pGak1WbDVTVkpJZERkdlpsRkhMekJhYkhkakx6UXhRM2hQUkN0c2VYcEhNelJTYTJkSkRRcFZUelpWWm1wcFIwTkdVRzFhVVRKSWEzQkxlWEZNYVdaeVlWSmtjWEpJV0U5b2IxWmtOMGhwWkZsSmFXaHVXa3RFYTB4cE1XTm1aVzh5YlhvNGRGZHBEUXBWZWtFclpGQmphR0ZKUld4d1VVcFFWR3BUWWt4cVJqSkpNVGxSZVVJNFpuVlFZWHBRWms1SmFraHlXR0ZMYkdGVE0yeDFTMk5HYVhGUFdXZGpkMWRtRFFwa1dtMUVlbmhKVlRaUVdUSmllbmd2VTBSTmIxVXlOSEpCVmxOMVIwRlpRa2xCYkhkbU1uQjRiWFJNWTJKTlFUWmlXWEkwZEhKdFVXWmlTbkpOT0dZNERRcEtXbWRIVVc5SmRISndlbkpMYWtKS01tZEdVblFyTURZMVRrMVVUbXRDTlhKM09GaHlOVFpxTldScWEzRkNNQzl4U0VsalJqSlVhVmt2YXk4NE1WSnREUXBVUTFsNGNsWkllazB4WTNwb1dFaFlXWHAyYm1ReVNtd3hkMHBZZVdGalYydzNSbWxRWVdkbmR6QlpVV2xrVjBoSFRXUkpkRVYxUkM4NFUxaHBRMWhzRFFveFQwbDJkbWxqUFEwS0xTMHRMUzFGVGtRZ1EwVlNWRWxHU1VOQlZFVXRMUzB0TFEwSyIsIkxTMHRMUzFDUlVkSlRpQkRSVkpVU1VaSlEwRlVSUzB0TFMwdERRcE5TVWxHWWxSRFEwRXhWMmRCZDBsQ1FXZEpTVWhxYW1aVWRWTnFSbXBOZDBSUldVcExiMXBKYUhaalRrRlJSVXhDVVVGM1VrUkZWazFDVFVkQk1WVkZEUXBCZDNkTllWWk9TVkZXU2taV1IxWjZaRVZPUWsxUk1IZERkMWxFVmxGUlRFUkJVbFZhV0U0d1RWRTRkMFJSV1VSV1VWRkxSRUZhY0ZVd2FFSlZhMVY0RFFwRGVrRktRbWRPVmtKQldWUkJhelZOVFVJMFdFUlVSVFJOUkdONVRYcEZNVTFFVlhoTk1XOVlSRlJKTkUxRVkzbE5SRVV4VFVSVmVFMHhiM2RTUkVWV0RRcE5RazFIUVRGVlJVRjNkMDFoVms1SlVWWktSbFpIVm5wa1JVNUNUVkV3ZDBOM1dVUldVVkZNUkVGU1ZWcFlUakJOVVRoM1JGRlpSRlpSVVV0RVFWcHdEUXBWTUdoQ1ZXdFZlRU42UVVwQ1owNVdRa0ZaVkVGck5VMU5TVWxEU1dwQlRrSm5hM0ZvYTJsSE9YY3dRa0ZSUlVaQlFVOURRV2M0UVUxSlNVTkRaMHRERFFwQlowVkJORWhKVVRKbFIxaFRVREJpY1dkUGN6WkpZbko0Vkhjdk1IVTJXSGxTYVRWSUwxb3JhamhvVUhwR1pWTXZiamRWWTBSekt6UTRSMWxUWjBWT0RRb3hZMGxFUWtGSFYycHVkMDVOTm5VMFVuQlJhVWM0ZUd3M1dYUnFWM2x0ZDB0dE5FaFlkRXhCVVhGME56SmhjbGt6TjFCVFJqTXdXR2syVmxCQ1lXNTBEUXBRVkdSaFlTczVla05WT0VONVJtNUZXakptUzFSck1WTjFaek0yWnpaR05rOXFaR2REUTBkcmFtUndjRXRXZVU1SmJEVlBWeXRyYWtaeE1rRTVSM1owRFFwQ1VrZEZkMUl5WlhSdmRFdDBjMGxJU1M5bk5HTllUMFphYW5SRFEzUlFiMFZ0YWxFMk5tWlRkMkUzUVdwdmJIQkNZakpRWTNOelExWndZalZqTm5OQkRRcG1jREl3U2s1dU9EUnJSRkZGYjBocVpXOTVUa0Z4WTNSQ1JVbHpVbHBHTkd0d1ZHNDBXV2hUV0hFd1ZFZ3ZhMUowUlVWbVRrVnRla3hGVDFOaFJGZFFEUXA1VERoeFNrcHdlREZoVUVGNVpUQm1hMGRtU21rMU1XTkhVbkpHZUdZM2FtWk9PVGxVYW1SbU0zbDRkM1JVTDNsUmNYVlhUSEEyVmt4a2NXcEtUR3M1RFFwaWRFZHJLMEpwVXpscFZuUjNOREZGWXpKNWMxZ3ZNMmN3ZUdWV1ZrWkhkSGxEZDBGRFYzQjVTWGdyVVcwNE1FdHFWbGhyV1VSNGFFZHBURkZxVVVsNkRRcFdiMnhRUlZaVlJFRmFibmNyVEVOdFp6TlBXVGxKZVRCUVdGUldNSGd6UTB0SVRTdERNM1ZyV2xkclV6RmtNME5UWjBSV2JERXJZM0JJU2xRMGJUWm1EUXBMYm01alR6YzNlVlpQTUhseVZ6VXlNVGhWUjJGWlFVeFBhRGhRU0c5M016WmxPV05DTW1Nd1lsUXlaREZEU0ZKbGExTnNOQ3RDZUN0NFVVMUhkM05RRFFwNWRtVkhaM0JyU0dsa1duUlpVa1JRTkVVdlNIaE9TM2tyZDJaQ2VWRmxVM1UwV1dOVll6aEZTSGg1T1hGNmVHRmxNamhSWmxwdU4zTTBOMVl2VUdwQkRRcHJNR1JNV25sUlJHOXVSVGxSTVRCUGEwMVdNVFZFY0RsUVYwZGxRMUZLY21rMVNtUlBibklyYVVRNFJHUkljME5CZDBWQlFXRk9hazFIUlhkRWQxbEVEUXBXVWpCVVFWRklMMEpCVlhkQmQwVkNMM3BCWmtKblRsWklVMDFGUjBSQlYyZENVM1J5WTNGNFQyUlNWMlJxZDNCbFExaFNSMHRLUVVjeVoyOVVSRUZrRFFwQ1owNVdTRkUwUlVablVWVnlZVE5MYzFSdVZWWnVXVGhMV0dkc01GSnBhVkZDZEc5TFJYZDNSR2RaUkZaU01GQkJVVWd2UWtGUlJFRm5SMGROUVRCSERRcERVM0ZIVTBsaU0wUlJSVUpEZDFWQlFUUkpRMEZSUWtOSFdVNXNMekZJUmxkV2FFUnZVRzFyY0ZaeGJUTXdjbmx4Wmpaa1YzZ3hjbmhVVnpGc2F6bGhEUXBXVlU5c1VqbEpVa2hRY0RGNkwwWXZOR1ppTm0xSldFWnFSbGwzTld4Vk1tWmhTRlk1YjNBMGNrNTFSM0ZTVWxOTWFWRlFWblpQV0hoRWJIaHhRVFpFRFFwdGNYcHBVa1YyZEhSSE1IVk1XaTlHVDNsalMxazFNM0JYUmtONlJ6SnJaWEUyVDBsa09VcFRjRVp0VVVSUGFVWTNWMU4xYVdaUVRIVjNRVVJyVlhjckRRcHZXbGxIWjFkdFluZFJUekJzV0hSM04xaFBibmt6TjI1TVdtdFpiRGc1WWxKb1NXY3ZOMlppSzFodVlqZzVNVFJUVFhZd2EwZHNhekZyUTJWNVREWkdEUXBZWkZoU1ZHRmhkRFZqT1Zoc1NuSTVlWHBQVlVsRWJqVTBZbGt4UWt0VU5sbDBhWGxLWm5aRFRtRjJMMFppTWpSMk5XVnhNbG81YlVKa1dqY3dRMk01RFFvMVoxQnFjWEY0VFZwVlowcHZOVGRaZG1oTVpsaEVkM2hpVjFwWFdVTXJWMk5TT0c1SWExa3JkRnBDYkVscGFESkRXRWh6VDJGeU5XOUlObVJ5VFdSMERRcE5TVnA2TTFWYVNpOURlRVpITVhVeU0xVjZNV3BDWm0wdlJXZG5aRXRvVDFadVZEWmxaSEoxVm05MFpWZFhRMFJDT1Voa2FIaDZPRkpCVmxsdU5XUnhEUXBWYW10cVVuRTBWemxSUVdaS2RYTnlVRnBIUW01a1ZEZDVUbUZaTDBaSVdVdEpjU3QxVkdGeVYybGlhbVI0ZEdSWlEyeGhWSGRQZUdzMVNYRkxUa1k1RFFwbFEwdGlVRzE0Y3pGdGJGcHlVMHhxVFZGR1dUTlZPVkpyZG5wSkt6TkpiRUZHYTJOMFZXVmhZbkJyYlZoNGJuVlhWMU5XTWtaS1R6bGFjazlPVFZkMURRcDBkeXMxTmpkUVN6Vm5lazB3Um5GUmRtSTNjME40V25WUlJHdzFRM1EyV2xkc2RITXlXVGN5ZERad1VHcFNTVEUzSzFNNEt5dGhNblpSWkhoQ1kwNVJEUW93ZUVZeWRHcDJlbFIyYVZvelF6VkZjVWxsWVhwWFpHZEpXbXR4WmxkYWExTTRkaXN3VFVGMlRscFpLMkppZUN0MlUzZE1UMjlJVVZkeVppOVBRMHczRFFwQlVUMDlEUW90TFMwdExVVk9SQ0JEUlZKVVNVWkpRMEZVUlMwdExTMHREUW89Il0sImFsZyI6IlJTMjU2IiwidHlwIjoiSldUIn0.eyJpc3MiOiJFVS5FT1JJLk5MMDAwMDAwMDAwIiwic3ViIjoiRVUuRU9SSS5OTDAwMDAwMDAwMCIsImp0aSI6Ijk3NzRkOTI0YjhjMDRiOTdiZDNmMDgwN2RlYjE1NGI2IiwiaWF0IjoxNTkxOTY2MDEwLCJleHAiOjE1OTE5NjYwNDAsImF1ZCI6IkVVLkVPUkkuTkwwMDAwMDAwMDEiLCJ0cnVzdGVkX2xpc3QiOlt7InN1YmplY3QiOiJDPU5MLCBPPVN0YWF0IGRlciBOZWRlcmxhbmRlbiwgQ049VEVTVCBTdGFhdCBkZXIgTmVkZXJsYW5kZW4gT3JnYW5pc2F0aWUgU2VydmljZXMgQ0EgLSBHMyIsImNlcnRpZmljYXRlX2ZpbmdlcnByaW50IjoiREMxM0ZDOTRGRjAxNDlERTFCMDdGNzk2NUY2NTVBRUQ1NEM2QTZCREE3QURGNzFBNzMyRkZDRkFCQzQ1NEM3QSIsInZhbGlkaXR5IjoidmFsaWQiLCJzdGF0dXMiOiJncmFudGVkIn0seyJzdWJqZWN0IjoiQz1OTCwgTz1pU0hBUkUgRm91bmRhdGlvbiwgQ049VEVTVCBpU0hBUkUgRm91bmRhdGlvbiBQS0lvdmVyaGVpZCBPcmdhbmlzYXRpZSBTZXJ2ZXIgQ0EgLSBHMyIsImNlcnRpZmljYXRlX2ZpbmdlcnByaW50IjoiRjIxODEzM0NEM0FDMkQ5NzBEMTBDQTQ2QkIwM0Y4MzI0NTMzMjRCMEY0QUY1QzNGNjFCQUQ2RkRFRUM1RUI4MyIsInZhbGlkaXR5IjoidmFsaWQiLCJzdGF0dXMiOiJncmFudGVkIn0seyJzdWJqZWN0IjoiQz1OTCwgTz1URVNUIFN0YWF0IGRlciBOZWRlcmxhbmRlbiwgQ049VEVTVCBTdGFhdCBkZXIgTmVkZXJsYW5kZW4gUm9vdCBDQSAtIEczIiwiY2VydGlmaWNhdGVfZmluZ2VycHJpbnQiOiI5OEM5QzE0RjdGMUY5QTgzQTc0NEUwQUNCQTlEQTZBNDdFRTk2RTA1M0Q3Mjc5NTQ1N0E1QkMwMjA3MjI5RDQzIiwidmFsaWRpdHkiOiJ2YWxpZCIsInN0YXR1cyI6ImdyYW50ZWQifSx7InN1YmplY3QiOiJDTj1URVNUIGlTSEFSRSBGb3VuZGF0aW9uIGVJREFTIiwiY2VydGlmaWNhdGVfZmluZ2VycHJpbnQiOiI4QzM5REQwNkUzNURFODQ2NzAwNEE1NDJEMENBNEI4RkRDN0Q2RjhGNzEzRjQwQTM1QkQ5RTY1OTM4QTE5MUNGIiwidmFsaWRpdHkiOiJ2YWxpZCIsInN0YXR1cyI6ImdyYW50ZWQifSx7InN1YmplY3QiOiJDPU5MLCBPPWlTSEFSRSwgT1U9VGVzdCwgQ049aVNIQVJFVGVzdENBIiwiY2VydGlmaWNhdGVfZmluZ2VycHJpbnQiOiJBNzhGREY3QkExM0JCRDk1QzYyMzY5NzJERDAwM0ZBRTA3RjRFNDQ3Qjc5MUI2RUY2NzM3QUQyMkYwQjYxODYyIiwidmFsaWRpdHkiOiJ2YWxpZCIsInN0YXR1cyI6ImdyYW50ZWQifSx7InN1YmplY3QiOiJDTj1URVNUIGlTSEFSRSBFVSBJc3N1aW5nIENlcnRpZmljYXRpb24gQXV0aG9yaXR5IEc1IiwiY2VydGlmaWNhdGVfZmluZ2VycHJpbnQiOiJGRDU1OTNEQzg3NEVDQzExMzNDMjFBNzcyNTlDMzU5MjU1MkVDMEM4OURGQ0Q3QUIzQzBCRENGRDczRjBGNUNDIiwidmFsaWRpdHkiOiJ2YWxpZCIsInN0YXR1cyI6ImdyYW50ZWQifSx7InN1YmplY3QiOiJDPU5MLCBPPWlTSEFSRSwgT1U9VGVzdCwgQ049aVNIQVJFVGVzdENBX1RMUyIsImNlcnRpZmljYXRlX2ZpbmdlcnByaW50IjoiREYyRkY1MUQxQjI1NTlENjg2NzIzQzk3MDM3REM5RDVDNTg5NDA2Q0FDNEY4NEMyOUFCM0Q0M0UwMTI2MjUxRCIsInZhbGlkaXR5IjoidmFsaWQiLCJzdGF0dXMiOiJncmFudGVkIn1dfQ.OIGt8osaIt4065F3EtCAYdO6xZgHzchjR3Y6EDiUlp3lPtvtTquDt4HOTosdx4l0_AaBBFBdsx46iN8UJFiROxYKjrRai01-2GeFMv6cbYlm_LJq4rnY440ZwysCCTAGTiCrCYiiDLZwxIjLBvrEkXVmKJw4EtGb27AYS9tK2TPHDU6OobH0wYyumR4qmASI7ciCULJucZCAHmTtq3wu_Tsg3xpGgAZdGFx4CQB_u3o_HgXzehRg8dAxxknrp8Nv7nCsq1NF17iu004Eqj8UezpcZiP9-MGlBVrk24a3LlIMBecq2TyAkf7Umd-Qb98EWWy7Vu9GHHD6fHjW2iiaDQ"
-    }
-
-Decoded JWT Payload
-^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: json
-
-    {
-      "iss": "EU.EORI.NL000000000",
-      "sub": "EU.EORI.NL000000000",
-      "jti": "9774d924b8c04b97bd3f0807deb154b6",
-      "iat": 1591966010,
-      "exp": 1591966040,
-      "aud": "EU.EORI.NL000000001",
-      "trusted_list": [
+ {
+  "parties_token": {
+    "iss": "EU.EORI.NL123456789",
+    "sub": "EU.EORI.NL123456789",
+    "aud": "EU.EORI.NL123456789",
+    "jti": "378a47c4-2822-4ca5-a49a-7e5a1cc7ea59",
+    "exp": 1504684475,
+    "iat": 1504683475,
+    "parties_info": {
+      "count": 0,
+      "data": [
         {
-          "subject": "C=NL, O=Staat der Nederlanden, CN=TEST Staat der Nederlanden Organisatie Services CA - G3",
-          "certificate_fingerprint": "DC13FC94FF0149DE1B07F7965F655AED54C6A6BDA7ADF71A732FFCFABC454C7A",
-          "validity": "valid",
-          "status": "granted"
-        },
-        {
-          "subject": "C=NL, O=iSHARE Foundation, CN=TEST iSHARE Foundation PKIoverheid Organisatie Server CA - G3",
-          "certificate_fingerprint": "F218133CD3AC2D970D10CA46BB03F832453324B0F4AF5C3F61BAD6FDEEC5EB83",
-          "validity": "valid",
-          "status": "granted"
-        },
-        {
-          "subject": "C=NL, O=TEST Staat der Nederlanden, CN=TEST Staat der Nederlanden Root CA - G3",
-          "certificate_fingerprint": "98C9C14F7F1F9A83A744E0ACBA9DA6A47EE96E053D72795457A5BC0207229D43",
-          "validity": "valid",
-          "status": "granted"
-        },
-        {
-          "subject": "CN=TEST iSHARE Foundation eIDAS",
-          "certificate_fingerprint": "8C39DD06E35DE8467004A542D0CA4B8FDC7D6F8F713F40A35BD9E65938A191CF",
-          "validity": "valid",
-          "status": "granted"
-        },
-        {
-          "subject": "C=NL, O=iSHARE, OU=Test, CN=iSHARETestCA",
-          "certificate_fingerprint": "A78FDF7BA13BBD95C6236972DD003FAE07F4E447B791B6EF6737AD22F0B61862",
-          "validity": "valid",
-          "status": "granted"
-        },
-        {
-          "subject": "CN=TEST iSHARE EU Issuing Certification Authority G5",
-          "certificate_fingerprint": "FD5593DC874ECC1133C21A77259C3592552EC0C89DFCD7AB3C0BDCFD73F0F5CC",
-          "validity": "valid",
-          "status": "granted"
-        },
-        {
-          "subject": "C=NL, O=iSHARE, OU=Test, CN=iSHARETestCA_TLS",
-          "certificate_fingerprint": "DF2FF51D1B2559D686723C97037DC9D5C589406CAC4F84C29AB3D43E0126251D",
-          "validity": "valid",
-          "status": "granted"
+          "party_id": "EU.EORI.US000000005",
+          "party_name": "Example Corporation",
+          "capability_url": "https://www.example.com/capabilities",
+          "registrar_id": "EU.EORI.NL123456789",
+          "adherence": {
+            "status": "Active",
+            "start_date": "2023-01-31T00:00:00.000Z",
+            "end_date": "2024-02-01T00:00:00.000Z"
+          },
+          "additional_info": {
+            "description": "Example is a corporation providing example services to its customers in example regions",
+            "logo": "https://www.example.com/logo.png",
+            "website": "https://www.example.com/",
+            "company_phone": "string",
+            "company_email": "John.doe@example.com",
+            "publicly_publishable": false,
+            "countries_operation": [],
+            "sector_industry": [],
+            "tags": "mobility transport_operator"
+          },
+          "agreements": [
+            {
+              "type": "TermsOfUse",
+              "title": "TOU",
+              "status": "Accepted",
+              "sign_date": "2023-01-31T00:00:00.000Z",
+              "expiry_date": "2024-01-31T00:00:00.000Z",
+              "hash_file": "614331b0003219f2d2d123b0cd6105fb",
+              "framework": "iSHARE",
+              "dataspace_id": "",
+              "dataspace_title": "",
+              "complaiancy_verified": "yes"
+            },
+            {
+              "type": "AccessionAgreement",
+              "title": "AA",
+              "status": "Accepted",
+              "sign_date": "2023-01-31T00:00:00.000Z",
+              "expiry_date": "2024-01-31T00:00:00.000Z",
+              "hash_file": "f50a036402b3b243910ce572930be9f5",
+              "framework": "iSHARE",
+              "dataspace_id": "",
+              "dataspace_title": "",
+              "complaiancy_verified": "yes"
+            }
+          ],
+          "certificates": [
+            {
+              "subject_name": "SERIALNUMBER=EU.EORI.US000000005,CN=CFMInternational,O=CFM International,C=US",
+              "certificate_type": "Pkio",
+              "enabled_from": "2023-01-31T00:00:00.000Z",
+              "x5c": "",
+              "x5t#s256": ""
+            }
+          ],
+          "spor": {
+            "signed_request": "f1aec63b5b6f545718dc1c86efda3a9e8d8c74c4c2af42b39d9e8d41f3fc2b4e"
+          },
+          "roles": [
+            {
+              "role": "ServiceConsumer",
+              "start_date": "2023-01-31T00:00:00.000Z",
+              "end_date": "2024-01-31T00:00:00.000Z",
+              "loa": "High",
+              "compliancy_verified": true,
+              "legal_adherence": true
+            }
+          ],
+          "auth_registries": [
+            {
+              "name": "iSHARE Test Authorization Registry",
+              "id": "EU.EORI.NL000000004",
+              "url": "http://ar.isharetest.net/",
+              "dataspace_id": "ContaktDS1",
+              "dataspace_name": "ContaktDS1"
+            }
+          ]
         }
       ]
     }
+  }
+}
+
+Extensions
+~~~~~~~
+
+``x-operation-settings``
+    | **String**.
+    | {"CollectParameters":false,"AllowDynamicQueryParameters":false,"AllowDynamicFormParameters":false,"IsMultiContentStreaming":false,"ErrorTemplates":{},"SkipAdditionalHeaders":false}
+
+``x-unitTests``
+    | **String**.
+    |[{"request":{"method":"GET","uri":"/parties?active_only=true&name=ABC%20Corporation%0AABC%2A%0A%2ACorporation&eori=EU.EORI.NL123456789%0AEU.EORI.NL%2A%0A%2A123456789&certified_only=true&date_time=2023-01-31T00%3A00%3A00.000Z&adherenceStatus=%22Active%22%0A%22Revoked%22%0A%22Not%20Active%22%0A%22Pending%22&adherenceStartdate=2023-01-31T00%3A00%3A00.000Z&adherenceEnddate=2023-01-31T00%3A00%3A00.000Z&registarSatelliteID=EU.EORI.NL012345678&webSiteUrl=https%3A%2F%2Fwww.example.com&companyEmail=John.doe%40example.com&publiclyPublishable=true&tags=mobility&framework=iSHARE&subjectName=%22SERIALNUMBER%3DEU.EORI.US000000005%2CCN%3DCFMInternational%2CO%3DCFM%20International%2CC%3DUS%22&role=Service%20Consumer%0AService%20Provider%0AEntitled%20Party%0AAuthorisation%20Registry%0AIdentity%20Provider%0AIdentity%20Broker%0AiSHARE%20Satellite&loA=Low%0ASubstantial%0AHigh&compliancyVerified=true&legalAdherence=true&authorizationRegistryID=EU.EORI.NL000000004&authorizationRegistryName=%22Askme%20anything%22&dataSpaceID=EU.DSP.NLLOGISTICS_DLDS&dataSpaceTitle=%22Dutch%20Mobility%20Dataspace%22&countriesOfOperation=Belgium&sectorIndustry=Energy&page=2&certificate_subject_name=%22SERIALNUMBER%3DEU.EORI.US000000005%2CCN%3DCFMInternational%2CO%3DCFM%20International%2CC%3DUS%22"},"expectedResponse":{"x-allowExtraHeaders":true,"x-bodyMatchMode":"NONE","x-arrayOrderedMatching":false,"x-arrayCheckCount":false,"x-matchResponseSchema":true,"statusCode":"200","headers":{"Content-Type":"application/json"}},"x-testShouldPass":true,"x-testEnabled":true,"x-testName":"Test /parties","x-testDescription":"Search for participant information from your satellite. Various search parameters are supported as shown below. When results are more then 10 participants, pagination is used in response and each page contains up to 10 participants"}]
