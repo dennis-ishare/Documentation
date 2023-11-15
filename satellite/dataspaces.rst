@@ -14,30 +14,6 @@ Parameters
     | OAuth 2.0 authorization based on bearer token. MUST contain “Bearer ” + access token value. How to retrieve the access token can be found at Access Token Endpoint section.
 
 
-Request
--------
-
-HTTP methods
-~~~~~~~~~~~~
-
-* GET
-
-Headers
-~~~~~~~
-
-``Authorization``
-    | **String**.
-    | OAuth 2.0 authorization based on bearer token. MUST contain "Bearer " + access token value. How to retrieve the access token can be found at :ref:`Access Token Endpoint section<refM2MToken>`.
-
-Example
-~~~~~~~
-
-::
-
-    > Authorization: Bearer IIeDIrdnYo2ngwDQYJKoZIhvcNAQELBQAwSDEZMBcGA1UEAwwQaVNIQ
-
-    GET /trusted_list
-
 Response
 --------
 
